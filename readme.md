@@ -2,7 +2,7 @@
 
 A small Scala 3 project demonstrating an FS2 producer/consumer pipeline that downloads HTML pages and extracts hyperlinks.
 
-This project satisfies the basic requirement to: 
+This project satisfies the basic requirement to
 have a producer download markup from a list of URLs and place the markup on a queue, 
 while a consumer reads the markup, parses out links, and prints them. 
 
@@ -68,9 +68,10 @@ Configuration points you may want to change in `WebLinkExtractorApp`:
 ---
 
 ## Files to look at
-- `src/main/scala/net/jtownson/weblinkextractor/WebLinkExtractorApp.scala.scala` - sample producer/consumer application.
+- `src/main/scala/net/jtownson/weblinkextractor/WebLinkExtractorApp.scala` - sample producer/consumer application.
 - `src/main/scala/net/jtownson/weblinkextractor/Fs2ProducerConsumer[Spec].scala` - core producer/consumer implementation and test cases.
 - `src/main/scala/net/jtownson/weblinkextractor/URLDownloader.scala` - simple downloader traits and helpers.
 - `src/main/scala/net/jtownson/weblinkextractor/HTMLParser.scala` - jsoup-based link extractor.
+
 
 ---
