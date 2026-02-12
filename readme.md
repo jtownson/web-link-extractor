@@ -1,31 +1,17 @@
 # web-link-extractor
 
-A small Scala 3 project demonstrating an FS2 producer/consumer pipeline that downloads HTML pages and extracts hyperlinks.
+This is a simple Scala 3 project demonstrating an FS2/cats-effect producer/consumer pipeline with a circular buffer. 
+The pipeline downloads HTML pages and extracts hyperlinks.
 
-This project satisfies the basic requirement to
-have a producer download markup from a list of URLs and place the markup on a queue, 
-while a consumer reads the markup, parses out links, and prints them. 
-
-In this project, I decided to use cats-effect and not to use some kind of out-of-the-box
-message queue (e.g. kafka) spun up with docker. This was in order to make sure the 
-requirements could be demonstrated explicitly in unit tests, in preference to referring
-to the documentation for some messaging bus. If you were going to do this in a production
-scenario, I would probably take something off the shelf.
+The project also shows a few tricks for testing concurrent apps, such as event logging. Event logging in particular is interesting because it converts temporal execution into a flat, spatial list. Temporal execution is a nightmare to visualize and reason about but, with a list of events, that's an easy task.
 
 ---
 
 ## Build & test
 
 Requirements:
-- Java 17+ (or compatible JDK used by sbt)
 - Scala 3
-- sbt installed
-
-Run the test cases with:
-
-```bash
-sbt test
-```
+- sbt
 
 ---
 
@@ -33,8 +19,6 @@ sbt test
 
 The `WebLinkExtractorApp` provides a simple `IOApp` entry point. 
 By default it reads URLs from the resource file `src/main/resources/url-list.txt`.
-The app uses a circular buffer to limit queued items, dropping older items in the case of overflow.
-Parsed links are printed stdout.
 
 Run the app with:
 
@@ -42,10 +26,11 @@ Run the app with:
 sbt run
 ```
 
-Configuration points you may want to change in `WebLinkExtractorApp`:
+Configuration points in `WebLinkExtractorApp`:
 - `queueMaxSize` - the size of the queue buffer. The default in the sample app is `100`.
 - `downloadConcurrency` - number of concurrent downloads.
 - `urlSource` - source of URLs (resources, file, or custom list).
+
 
 ---
 
@@ -75,3 +60,4 @@ Configuration points you may want to change in `WebLinkExtractorApp`:
 
 
 ---
+
